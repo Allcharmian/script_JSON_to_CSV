@@ -24,36 +24,25 @@ for nodo in nodos:
 with open('output_prueba.json', 'w') as file:
     json.dump(relaciones, file, indent=4)
 
+
 def reconstruir_flujo(nodo_key, nivel=0):
     nodo = nodos_dict.get(nodo_key)
     if not nodo:
         return None
 
-    if nodo['component'] == 'CodeFactoryAction':
-        nodo_info = {
-            "component": nodo['component'],
-            "componentKeyGenerated": nodo['componentKeyGenerated'],
-            "businessLogicParentKey": nodo['businessLogicParentKey'],
-            "businessLogicChildKey": nodo['businessLogicChildKey'],
-            "titulo": nodo['meta']['title'],
-            'complexVariables': nodo['meta']['codeFactoryActionComplexVariables'] or None,
-            'simpleVariables': nodo['meta']['codeFactoryActionSimpleVariables'] or None,
-            "position": (nodo['number_x'], nodo['number_y']),
-            "onSuccess": nodo['onSuccess'],
-            "children": []
-        }
-    else:
-    # Crear un diccionario para el nodo actual
-        nodo_info = {
-            "component": nodo['component'],
-            "componentKeyGenerated": nodo['componentKeyGenerated'],
-            "businessLogicParentKey": nodo['businessLogicParentKey'],
-            "businessLogicChildKey": nodo['businessLogicChildKey'],
-            "titulo": nodo['meta']['title'] or None,
-            "position": (nodo['number_x'], nodo['number_y']),
-            "onSuccess": nodo['onSuccess'],
-            "children": []
-        }
+    nodo_info = {
+        "component": nodo['component'],
+        "componentKeyGenerated": nodo['componentKeyGenerated'],
+        "businessLogicParentKey": nodo['businessLogicParentKey'],
+        "businessLogicChildKey": nodo['businessLogicChildKey'],
+        "titulo": nodo['meta'].get('title'),
+        'Parametros': nodo['meta'].get('codeFactoryActionParameters'),
+        'complexVariables': nodo['meta'].get('codeFactoryActionComplexVariables'),
+        'simpleVariables': nodo['meta'].get('codeFactoryActionSimpleVariables'),
+        "position": (nodo['number_x'], nodo['number_y']),
+        "onSuccess": nodo.get('onSuccess'),
+        "children": []
+    }
 
     # Recorrer los hijos del nodo actual
     for hijo_key in relaciones.get(nodo_key, []):
