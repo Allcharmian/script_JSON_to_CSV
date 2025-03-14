@@ -1,0 +1,514 @@
+[
+    {
+        "component": "DataLockAction",
+        "componentKeyGenerated": "ACTION_ec705e9e-9e09-4389-b933-277fa6705ac0",
+        "businessLogicParentKey": "BUSINESS_LOGIC_63d1d851-b9f1-40f6-a850-b8fbae6c7b7f",
+        "businessLogicChildKey": "ACTION_ec705e9e-9e09-4389-b933-277fa6705ac0",
+        "titulo": "Acci\u00f3n Bloqueo de Datos",
+        "Parametros": null,
+        "complexVariables": null,
+        "simpleVariables": null,
+        "position": [
+            1,
+            2
+        ],
+        "onSuccess": true,
+        "children": [
+            {
+                "component": "CodeFactoryAction",
+                "componentKeyGenerated": "ACTION_b2212fb9-c8a6-402a-98cf-138f00071f13",
+                "businessLogicParentKey": "ACTION_ec705e9e-9e09-4389-b933-277fa6705ac0",
+                "businessLogicChildKey": "ACTION_b2212fb9-c8a6-402a-98cf-138f00071f13",
+                "titulo": "elegirNSeguro",
+                "Parametros": [
+                    {
+                        "dataType": "ACTION_2d4b347d-3f7b-4e8f-8420-59c74dbddced",
+                        "fieldPropertyName": "cotiza_seguro_array",
+                        "parameterAlias": "cotiza_seguro_array"
+                    },
+                    {
+                        "dataType": "ACTION_2d4b347d-3f7b-4e8f-8420-59c74dbddced",
+                        "fieldPropertyName": "aseguradoraArray",
+                        "parameterAlias": "aseguradoraArray"
+                    },
+                    {
+                        "dataType": "ACTION_2d4b347d-3f7b-4e8f-8420-59c74dbddced",
+                        "fieldPropertyName": "primaNetaArray",
+                        "parameterAlias": "primaNetaArray"
+                    },
+                    {
+                        "dataType": "ACTION_2d4b347d-3f7b-4e8f-8420-59c74dbddced",
+                        "fieldPropertyName": "idCotizacionSeguroArray",
+                        "parameterAlias": "idCotizacionSeguroArray"
+                    },
+                    {
+                        "fieldPropertyName": "aseguradora_#strc_id_1",
+                        "parameterAlias": "aseguradora_strc_id_1",
+                        "typeValueCatalogue": [
+                            "VALUE"
+                        ]
+                    },
+                    {
+                        "dataType": "ACTION_2d4b347d-3f7b-4e8f-8420-59c74dbddced",
+                        "fieldPropertyName": "primaTotalArray",
+                        "parameterAlias": "primaTotalArray"
+                    }
+                ],
+                "complexVariables": null,
+                "simpleVariables": [
+                    {
+                        "referenceKey": "ACTION_b08b1e7b-ed8f-48e0-8a73-687759396974",
+                        "variables": [
+                            {
+                                "dataType": "STRING",
+                                "propertyName": "Seguro"
+                            }
+                        ]
+                    },
+                    {
+                        "referenceKey": "ACTION_b08b1e7b-ed8f-48e0-8a73-687759396974",
+                        "variables": [
+                            {
+                                "dataType": "STRING",
+                                "propertyName": "Monto_Asegurado"
+                            }
+                        ]
+                    },
+                    {
+                        "referenceKey": "ACTION_e4b5bb06-2c8b-4d86-9250-05a1ecf9ca27",
+                        "variables": [
+                            {
+                                "dataType": "STRING",
+                                "propertyName": "seguro_elegido"
+                            }
+                        ]
+                    },
+                    {
+                        "referenceKey": "ACTION_5f551a15-f87d-482c-93ca-c1f6dea47a10",
+                        "variables": [
+                            {
+                                "dataType": "STRING",
+                                "propertyName": "seguro2_IdCotizacionSeguro"
+                            }
+                        ]
+                    },
+                    {
+                        "referenceKey": "ACTION_33b02d3a-3dfb-455b-8c8f-106ee8f09879",
+                        "variables": [
+                            {
+                                "dataType": "DOUBLE",
+                                "propertyName": "Prima_Neta_Seguro"
+                            }
+                        ]
+                    },
+                    {
+                        "referenceKey": "ACTION_5f551a15-f87d-482c-93ca-c1f6dea47a10",
+                        "variables": [
+                            {
+                                "dataType": "STRING",
+                                "propertyName": "seguro1_IdCotizacionSeguro"
+                            }
+                        ]
+                    },
+                    {
+                        "referenceKey": "ACTION_33b02d3a-3dfb-455b-8c8f-106ee8f09879",
+                        "variables": [
+                            {
+                                "dataType": "STRING",
+                                "propertyName": "Aseguradora_Seguro"
+                            }
+                        ]
+                    },
+                    {
+                        "referenceKey": "ACTION_b08b1e7b-ed8f-48e0-8a73-687759396974",
+                        "variables": [
+                            {
+                                "dataType": "STRING",
+                                "propertyName": "Siniestro"
+                            }
+                        ]
+                    },
+                    {
+                        "referenceKey": "ACTION_33b02d3a-3dfb-455b-8c8f-106ee8f09879",
+                        "variables": [
+                            {
+                                "dataType": "DOUBLE",
+                                "propertyName": "Prima_Total_Seguro"
+                            }
+                        ]
+                    }
+                ],
+                "position": [
+                    2,
+                    3
+                ],
+                "onSuccess": true,
+                "children": [
+                    {
+                        "component": "ManualIntegrationAction",
+                        "componentKeyGenerated": "ACTION_13d5ec0b-a16c-4b2c-a1c4-250ba8b24631",
+                        "businessLogicParentKey": "ACTION_b2212fb9-c8a6-402a-98cf-138f00071f13",
+                        "businessLogicChildKey": "ACTION_13d5ec0b-a16c-4b2c-a1c4-250ba8b24631",
+                        "titulo": "CotizarPOSTseguro",
+                        "Parametros": null,
+                        "complexVariables": null,
+                        "simpleVariables": null,
+                        "position": [
+                            3,
+                            4
+                        ],
+                        "onSuccess": true,
+                        "children": [
+                            {
+                                "component": "CodeFactoryAction",
+                                "componentKeyGenerated": "ACTION_725a4844-31ba-4745-89bc-a807b720a830",
+                                "businessLogicParentKey": "ACTION_13d5ec0b-a16c-4b2c-a1c4-250ba8b24631",
+                                "businessLogicChildKey": "ACTION_725a4844-31ba-4745-89bc-a807b720a830",
+                                "titulo": "postcotizar",
+                                "Parametros": [
+                                    {
+                                        "dataType": "ACTION_13d5ec0b-a16c-4b2c-a1c4-250ba8b24631",
+                                        "fieldPropertyName": "cotizaciones_from_api",
+                                        "parameterAlias": "cotizaciones_from_api_CotizarPOSTseguro"
+                                    },
+                                    {
+                                        "fieldPropertyName": "seguro_financiado_1_#boolean_id",
+                                        "parameterAlias": "seguro_financiado_1_boolean_id"
+                                    }
+                                ],
+                                "complexVariables": [
+                                    {
+                                        "referenceKey": "ACTION_c94aa15a-49cb-4e2c-99b5-4c803a78a9e0",
+                                        "variables": [
+                                            {
+                                                "dataType": "LIST",
+                                                "propertyName": "Array_Completo_CotizarPost"
+                                            }
+                                        ]
+                                    }
+                                ],
+                                "simpleVariables": [
+                                    {
+                                        "referenceKey": "ACTION_dbd709d8-2980-4a86-bdd8-47d2474ab0a6",
+                                        "variables": [
+                                            {
+                                                "dataType": "STRING",
+                                                "propertyName": "Pagomensual_3"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "referenceKey": "ACTION_dbd709d8-2980-4a86-bdd8-47d2474ab0a6",
+                                        "variables": [
+                                            {
+                                                "dataType": "STRING",
+                                                "propertyName": "Plazo_2"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "referenceKey": "ACTION_dbd709d8-2980-4a86-bdd8-47d2474ab0a6",
+                                        "variables": [
+                                            {
+                                                "dataType": "STRING",
+                                                "propertyName": "Plazo_1"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "referenceKey": "ACTION_dbd709d8-2980-4a86-bdd8-47d2474ab0a6",
+                                        "variables": [
+                                            {
+                                                "dataType": "STRING",
+                                                "propertyName": "SeguroFinanciado_2"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "referenceKey": "ACTION_dbd709d8-2980-4a86-bdd8-47d2474ab0a6",
+                                        "variables": [
+                                            {
+                                                "dataType": "STRING",
+                                                "propertyName": "SeguroFinanciado_5"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "referenceKey": "ACTION_dbd709d8-2980-4a86-bdd8-47d2474ab0a6",
+                                        "variables": [
+                                            {
+                                                "dataType": "STRING",
+                                                "propertyName": "SeguroFinanciado_4"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "referenceKey": "ACTION_dbd709d8-2980-4a86-bdd8-47d2474ab0a6",
+                                        "variables": [
+                                            {
+                                                "dataType": "STRING",
+                                                "propertyName": "Inicial_5"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "referenceKey": "ACTION_dbd709d8-2980-4a86-bdd8-47d2474ab0a6",
+                                        "variables": [
+                                            {
+                                                "dataType": "STRING",
+                                                "propertyName": "Inicial_2"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "referenceKey": "ACTION_dbd709d8-2980-4a86-bdd8-47d2474ab0a6",
+                                        "variables": [
+                                            {
+                                                "dataType": "STRING",
+                                                "propertyName": "Plazo_3"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "referenceKey": "ACTION_dbd709d8-2980-4a86-bdd8-47d2474ab0a6",
+                                        "variables": [
+                                            {
+                                                "dataType": "STRING",
+                                                "propertyName": "Pagomensual_1"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "referenceKey": "ACTION_dbd709d8-2980-4a86-bdd8-47d2474ab0a6",
+                                        "variables": [
+                                            {
+                                                "dataType": "STRING",
+                                                "propertyName": "SeguroFinanciado_1"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "referenceKey": "ACTION_dbd709d8-2980-4a86-bdd8-47d2474ab0a6",
+                                        "variables": [
+                                            {
+                                                "dataType": "STRING",
+                                                "propertyName": "Pagomensual_5"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "referenceKey": "ACTION_dbd709d8-2980-4a86-bdd8-47d2474ab0a6",
+                                        "variables": [
+                                            {
+                                                "dataType": "STRING",
+                                                "propertyName": "MontoTotal_3"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "referenceKey": "ACTION_dbd709d8-2980-4a86-bdd8-47d2474ab0a6",
+                                        "variables": [
+                                            {
+                                                "dataType": "STRING",
+                                                "propertyName": "Inicial_1"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "referenceKey": "ACTION_dbd709d8-2980-4a86-bdd8-47d2474ab0a6",
+                                        "variables": [
+                                            {
+                                                "dataType": "STRING",
+                                                "propertyName": "MontoTotal_2"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "referenceKey": "ACTION_dbd709d8-2980-4a86-bdd8-47d2474ab0a6",
+                                        "variables": [
+                                            {
+                                                "dataType": "STRING",
+                                                "propertyName": "Inicial_3"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "referenceKey": "ACTION_dbd709d8-2980-4a86-bdd8-47d2474ab0a6",
+                                        "variables": [
+                                            {
+                                                "dataType": "STRING",
+                                                "propertyName": "SeguroFinanciado_3"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "referenceKey": "ACTION_dbd709d8-2980-4a86-bdd8-47d2474ab0a6",
+                                        "variables": [
+                                            {
+                                                "dataType": "STRING",
+                                                "propertyName": "MontoTotal_5"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "referenceKey": "ACTION_dbd709d8-2980-4a86-bdd8-47d2474ab0a6",
+                                        "variables": [
+                                            {
+                                                "dataType": "STRING",
+                                                "propertyName": "Inicial_4"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "referenceKey": "ACTION_dbd709d8-2980-4a86-bdd8-47d2474ab0a6",
+                                        "variables": [
+                                            {
+                                                "dataType": "STRING",
+                                                "propertyName": "Plazo_5"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "referenceKey": "ACTION_dbd709d8-2980-4a86-bdd8-47d2474ab0a6",
+                                        "variables": [
+                                            {
+                                                "dataType": "STRING",
+                                                "propertyName": "Plazo_4"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "referenceKey": "ACTION_dbd709d8-2980-4a86-bdd8-47d2474ab0a6",
+                                        "variables": [
+                                            {
+                                                "dataType": "STRING",
+                                                "propertyName": "Pagomensual_4"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "referenceKey": "ACTION_dbd709d8-2980-4a86-bdd8-47d2474ab0a6",
+                                        "variables": [
+                                            {
+                                                "dataType": "STRING",
+                                                "propertyName": "MontoTotal_1"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "referenceKey": "ACTION_dbd709d8-2980-4a86-bdd8-47d2474ab0a6",
+                                        "variables": [
+                                            {
+                                                "dataType": "STRING",
+                                                "propertyName": "Pagomensual_2"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "referenceKey": "ACTION_dbd709d8-2980-4a86-bdd8-47d2474ab0a6",
+                                        "variables": [
+                                            {
+                                                "dataType": "STRING",
+                                                "propertyName": "MontoTotal_4"
+                                            }
+                                        ]
+                                    }
+                                ],
+                                "position": [
+                                    4,
+                                    5
+                                ],
+                                "onSuccess": true,
+                                "children": [
+                                    {
+                                        "component": "ModalAction",
+                                        "componentKeyGenerated": "ACTION_8fd921d9-9b44-4718-bf40-959f05d3366b",
+                                        "businessLogicParentKey": "ACTION_725a4844-31ba-4745-89bc-a807b720a830",
+                                        "businessLogicChildKey": "ACTION_8fd921d9-9b44-4718-bf40-959f05d3366b",
+                                        "titulo": "Modal",
+                                        "Parametros": null,
+                                        "complexVariables": null,
+                                        "simpleVariables": null,
+                                        "position": [
+                                            6,
+                                            6
+                                        ],
+                                        "onSuccess": true,
+                                        "children": [
+                                            {
+                                                "component": "VisibilityAction",
+                                                "componentKeyGenerated": "ACTION_c0d319bf-c121-4ba3-b346-8b572c2768d6",
+                                                "businessLogicParentKey": "ACTION_8fd921d9-9b44-4718-bf40-959f05d3366b",
+                                                "businessLogicChildKey": "ACTION_c0d319bf-c121-4ba3-b346-8b572c2768d6",
+                                                "titulo": "Visibilidad",
+                                                "Parametros": null,
+                                                "complexVariables": null,
+                                                "simpleVariables": null,
+                                                "position": [
+                                                    7,
+                                                    7
+                                                ],
+                                                "onSuccess": true,
+                                                "children": [
+                                                    {
+                                                        "component": "VisibilityAction",
+                                                        "componentKeyGenerated": "ACTION_2b3656bf-c940-4f4e-8f3c-ecd45f9ab7b2",
+                                                        "businessLogicParentKey": "ACTION_c0d319bf-c121-4ba3-b346-8b572c2768d6",
+                                                        "businessLogicChildKey": "ACTION_2b3656bf-c940-4f4e-8f3c-ecd45f9ab7b2",
+                                                        "titulo": "Ocultar",
+                                                        "Parametros": null,
+                                                        "complexVariables": null,
+                                                        "simpleVariables": null,
+                                                        "position": [
+                                                            8,
+                                                            8
+                                                        ],
+                                                        "onSuccess": true,
+                                                        "children": [
+                                                            {
+                                                                "component": "DataLockAction",
+                                                                "componentKeyGenerated": "ACTION_e353bb2a-08e0-4992-8e2d-8d5a605febeb",
+                                                                "businessLogicParentKey": "ACTION_2b3656bf-c940-4f4e-8f3c-ecd45f9ab7b2",
+                                                                "businessLogicChildKey": "ACTION_e353bb2a-08e0-4992-8e2d-8d5a605febeb",
+                                                                "titulo": "Acci\u00f3n Bloqueo de Datos",
+                                                                "Parametros": null,
+                                                                "complexVariables": null,
+                                                                "simpleVariables": null,
+                                                                "position": [
+                                                                    9,
+                                                                    9
+                                                                ],
+                                                                "onSuccess": true,
+                                                                "children": []
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "component": "ModalAction",
+                                "componentKeyGenerated": "ACTION_2edcbf67-2e96-4a00-9028-e9350b3d53ec",
+                                "businessLogicParentKey": "ACTION_13d5ec0b-a16c-4b2c-a1c4-250ba8b24631",
+                                "businessLogicChildKey": "ACTION_2edcbf67-2e96-4a00-9028-e9350b3d53ec",
+                                "titulo": "Modal",
+                                "Parametros": null,
+                                "complexVariables": null,
+                                "simpleVariables": null,
+                                "position": [
+                                    5,
+                                    10
+                                ],
+                                "onSuccess": false,
+                                "children": []
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+]

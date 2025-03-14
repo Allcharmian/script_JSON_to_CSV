@@ -85,32 +85,31 @@ def transform_json_to_table(data: Dict[str, Any]) -> Optional[pd.DataFrame]:
             tipo_dato_list = []
             input_var_list = []
             input_dato_list = []
+            if_var_list = []
+            if_dato_list = []
             meta = comp.get('meta', {})
 
-            # Process Simple Variables
+            # Process Simple Variables output
             for simple_var in meta.get('codeFactoryActionSimpleVariables', []):
                 for var in simple_var.get('variables', []):
-                    tipo_var_list.append(
-                        var.get('propertyName', 'No disponible'))
+                    tipo_var_list.append(var.get('propertyName', 'No disponible'))
                     tipo_dato_list.append(var.get('dataType', 'No disponible'))
 
-            # Process Complex Variables
+            # Process Complex Variables output
             for complex_var in meta.get('codeFactoryActionComplexVariables', []):
                 for var in complex_var.get('variables', []):
-                    tipo_var_list.append(
-                        var.get('propertyName', 'No disponible'))
+                    tipo_var_list.append(var.get('propertyName', 'No disponible'))
                     tipo_dato_list.append(var.get('dataType', 'No disponible'))
 
-            # Process Action Parameters
+            # Process Action Parameters input
 
             for Action_var in meta.get('codeFactoryActionParameters', []):
-                for var in Action_var.get('variables', []):
-                    tipo_var_list.append(
-                        var.get('parameterAlias', 'NO disponible'))
-                    tipo_dato_list.append(var.get('dataType', 'No disponible'))
+                input_var_list.append(Action_var.get('parameterAlias', 'NO disponible'))
+                input_dato_list.append(Action_var.get('dataType', 'No disponible'))
+
 
             # Create rows for each variable combination
-            if not tipo_var_list:  # If no variables found, create one default row
+            if not (tipo_var_list or input_var_list):  # If no variables found, create one default row
                 rows.append({
                     "FLUJO": comp.get('specification', {}).get('specificationId', 'No disponible'),
                     "PAGINA": "No disponible",
@@ -121,12 +120,29 @@ def transform_json_to_table(data: Dict[str, Any]) -> Optional[pd.DataFrame]:
                     "BL": comp.get("componentKeyGenerated", "No disponible"),
                     "NODO": comp.get("componentKeyGenerated", "No disponible"),
                     "INPUT": "No disponible",
-                    "OUTPUT": "No disponible",
+                    "OUTPUT": meta.get('dataLockDependencyList',"No disponible"),
                     "TIPO VAR": "No disponible",
                     "TIPO DATO": "No disponible",
                     "CODIGO": meta.get('stringFunction', 'No disponible')
                 })
-            else:
+            elif (input_var_list and tipo_var_list):
+
+                for var_input, dato_input in zip(input_var_list, input_dato_list):
+                    rows.append({
+                        "FLUJO": comp.get('specification', {}).get('specificationId', 'No disponible'),
+                        "PAGINA": "No disponible",
+                        "ESTATUS": "No disponible",
+                        "COMPONENTE": comp.get('component', 'No disponible'),
+                        "TITULO COMPONENTE": meta.get('title', 'No disponible'),
+                        "ACCION": "No disponible",
+                        "BL": comp.get("componentKeyGenerated", "No disponible"),
+                        "NODO": comp.get('componentKeyGenerated', 'No disponible'),
+                        "INPUT": True,
+                        "OUTPUT": 'Si lo arroja',
+                        "TIPO VAR": var_input,
+                        "TIPO DATO": dato_input,
+                        "CODIGO": meta.get('stringFunction', 'No disponible')
+                    })
                 for tipo_var, tipo_dato in zip(tipo_var_list, tipo_dato_list):
                     rows.append({
                         "FLUJO": comp.get('specification', {}).get('specificationId', 'No disponible'),
@@ -137,12 +153,14 @@ def transform_json_to_table(data: Dict[str, Any]) -> Optional[pd.DataFrame]:
                         "ACCION": "No disponible",
                         "BL": comp.get("componentKeyGenerated", "No disponible"),
                         "NODO": comp.get('componentKeyGenerated', 'No disponible'),
-                        "INPUT": 'No',
+                        "INPUT": 'No disponible',
                         "OUTPUT": True,
                         "TIPO VAR": tipo_var,
                         "TIPO DATO": tipo_dato,
-                        "CODIGO": 'No disponible'
+                        "CODIGO": meta.get('stringFunction', 'No disponible')
                     })
+
+
 
         return pd.DataFrame(rows)
 
