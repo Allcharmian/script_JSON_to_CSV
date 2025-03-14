@@ -83,6 +83,7 @@ def transform_json_to_table(data: Dict[str, Any]) -> Optional[pd.DataFrame]:
         for comp in data['componentList']:
             tipo_var_list = []
             tipo_dato_list = []
+            tipo_output = []
             input_var_list = []
             input_dato_list = []
             if_var_list = []
@@ -94,12 +95,14 @@ def transform_json_to_table(data: Dict[str, Any]) -> Optional[pd.DataFrame]:
                 for var in simple_var.get('variables', []):
                     tipo_var_list.append(var.get('propertyName', 'No disponible'))
                     tipo_dato_list.append(var.get('dataType', 'No disponible'))
+                    tipo_output.append(var.get('jajajajxdxdxdxjajajajajxdx', 'simpleVar'))
 
             # Process Complex Variables output
             for complex_var in meta.get('codeFactoryActionComplexVariables', []):
                 for var in complex_var.get('variables', []):
                     tipo_var_list.append(var.get('propertyName', 'No disponible'))
                     tipo_dato_list.append(var.get('dataType', 'No disponible'))
+                    tipo_output.append(var.get('jajajajajajaxdxdjajajajxdx', 'complexVar'))
 
             # Process Action Parameters input
 
@@ -120,7 +123,7 @@ def transform_json_to_table(data: Dict[str, Any]) -> Optional[pd.DataFrame]:
                     "BL": comp.get("componentKeyGenerated", "No disponible"),
                     "NODO": comp.get("componentKeyGenerated", "No disponible"),
                     "INPUT": "No disponible",
-                    "OUTPUT": meta.get('dataLockDependencyList',"No disponible"),
+                    "OUTPUT": 'No disponible',
                     "TIPO VAR": "No disponible",
                     "TIPO DATO": "No disponible",
                     "CODIGO": meta.get('stringFunction', 'No disponible')
@@ -137,13 +140,13 @@ def transform_json_to_table(data: Dict[str, Any]) -> Optional[pd.DataFrame]:
                         "ACCION": "No disponible",
                         "BL": comp.get("componentKeyGenerated", "No disponible"),
                         "NODO": comp.get('componentKeyGenerated', 'No disponible'),
-                        "INPUT": True,
-                        "OUTPUT": 'Si lo arroja',
-                        "TIPO VAR": var_input,
+                        "INPUT": var_input,
+                        "OUTPUT": '',
+                        "TIPO VAR": 'No disponible',
                         "TIPO DATO": dato_input,
                         "CODIGO": meta.get('stringFunction', 'No disponible')
                     })
-                for tipo_var, tipo_dato in zip(tipo_var_list, tipo_dato_list):
+                for tipo_var, tipo_dato, output_tipe in zip(tipo_var_list, tipo_dato_list, tipo_output):
                     rows.append({
                         "FLUJO": comp.get('specification', {}).get('specificationId', 'No disponible'),
                         "PAGINA": "No disponible",
@@ -153,9 +156,9 @@ def transform_json_to_table(data: Dict[str, Any]) -> Optional[pd.DataFrame]:
                         "ACCION": "No disponible",
                         "BL": comp.get("componentKeyGenerated", "No disponible"),
                         "NODO": comp.get('componentKeyGenerated', 'No disponible'),
-                        "INPUT": 'No disponible',
-                        "OUTPUT": True,
-                        "TIPO VAR": tipo_var,
+                        "INPUT": '',
+                        "OUTPUT": tipo_var,
+                        "TIPO VAR": output_tipe,
                         "TIPO DATO": tipo_dato,
                         "CODIGO": meta.get('stringFunction', 'No disponible')
                     })
