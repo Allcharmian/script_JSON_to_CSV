@@ -39,10 +39,13 @@ ACTION_TERMS = {
     "SHOW": "SHOW"
 }
 
-SET_PATTERN = r'(?:simpleVariables|complexVariables)\.set\(\s*[\'"](.*?)[\'"]\s*,\s*(.*?)\s*\)'
+SET_PATTERN = r'(simpleVariables|complexVariables)\.set\(\s*[\'"](.*?)[\'"]\s*,\s*(.*?)\s*\)'
 
-MODIFY_PATTERN = r'(?:simpleVariables|complexVariables)\.modify\(\s*[\'"](.*?)[\'"]\s*,\s*(.*?)\s*\)'
-
+MODIFY_PATTERN = r'(simpleVariables|complexVariables)\.modify\(\s*[\'"](.*?)[\'"]\s*,\s*(.*?)\s*\)'
+# with the ').get(' in the parameter
+GET_PATTERN = r'const\s+(\w+)\s*:\s*(\w+)\s*=\s*_json\.get\(\s*[\'"](.*?)[\'"]\s*\)(?:\.get\(\s*[\'"](.*?)[\'"]\s*\))?;'
+# the down line are incorrect
+#GET_PATTERN = r'const (\w+): (\w+) = _json\.get\([\'"]([^\'"]*)[\'"]\)(?:\.get\([\'"]([^\'"]*)[\'"]\))?;'
 
 def remove_specific_fields(data, field_name):
     if isinstance(data, dict):
@@ -88,7 +91,8 @@ def transform_json_to_table(data: Dict[str, Any]) -> Optional[pd.DataFrame]:
                 "BL": bl.get("key", "No disponible"),
                 "NODO": bl.get('key', 'No disponible'),
                 "VARIABLE": "No disponible",
-                "PARAMETROS": "No disponible",
+                "PARAMETRO UNO": "No disponible",
+                "PARAMETRO DOS": "No disponible",
                 "SET o MODIFY": "No disponible",
                 "CODIGO": bl.get('validatePreviousFieldsAndActions', 'No disponible')
             }
@@ -98,9 +102,11 @@ def transform_json_to_table(data: Dict[str, Any]) -> Optional[pd.DataFrame]:
         for comp in data['componentList']:
             tipo_var_list = []
             parametros_list = []
+            parametros2_list = []
             opcion_de_list = []
             set_matches = []
             modify_matches = []
+            get_matches = []
 
             meta = comp.get('meta', {})
 
@@ -111,14 +117,24 @@ def transform_json_to_table(data: Dict[str, Any]) -> Optional[pd.DataFrame]:
 
                 modify_matches.extend(re.findall(MODIFY_PATTERN, code_section))
 
+                get_matches.extend(re.findall(GET_PATTERN, code_section))                
+
+            for match in get_matches:
+                tipo_var_list.extend({match[0]})
+                parametros_list.extend({match[1]})
+                parametros2_list.extend({match[2]})
+                opcion_de_list.append('get')
+
             for match in set_matches:
                 tipo_var_list.extend({match[0]})
                 parametros_list.extend({match[1]})
+                parametros2_list.extend({match[2]})
                 opcion_de_list.append('set')
 
             for match in modify_matches:
                 tipo_var_list.extend({match[0]})
                 parametros_list.extend({match[1]})
+                parametros2_list.extend({match[2]})
                 opcion_de_list.append('modify')
 
             # Process Action Parameters input
@@ -136,12 +152,13 @@ def transform_json_to_table(data: Dict[str, Any]) -> Optional[pd.DataFrame]:
                     "BL": comp.get("componentKeyGenerated", "No disponible"),
                     "NODO": comp.get("componentKeyGenerated", "No disponible"),
                     "VARIABLE": "No disponible",
-                    "PARAMETROS": "No disponible",
+                    "PARAMETRO UNO": "No disponible",
+                    "PARAMETRO DOS": "NO disponible",
                     "SET o MODIFY": "No disponible",
                     "CODIGO": "No disponible"
                 })
             else:
-                for tipo_var, tipo_dato, tipo_opcion in zip(tipo_var_list, parametros_list, opcion_de_list):
+                for tipo_var, tipo_dato, tipo_dato2, tipo_opcion in zip(tipo_var_list, parametros_list, parametros2_list, opcion_de_list):
                     rows.append({
                         "FLUJO": comp.get('specification', {}).get('specificationId', 'No disponible'),
                         "PAGINA": "No disponible",
@@ -152,7 +169,8 @@ def transform_json_to_table(data: Dict[str, Any]) -> Optional[pd.DataFrame]:
                         "BL": comp.get("componentKeyGenerated", "No disponible"),
                         "NODO": comp.get('componentKeyGenerated', 'No disponible'),
                         "VARIABLE": tipo_var,
-                        "PARAMETROS": tipo_dato,
+                        "PARAMETRO UNO": tipo_dato,
+                        "PARAMETRO DOS": tipo_dato2,
                         "SET o MODIFY": tipo_opcion,
                         "CODIGO": "No disponible"
                     })
@@ -161,6 +179,7 @@ def transform_json_to_table(data: Dict[str, Any]) -> Optional[pd.DataFrame]:
     except Exception as e:
         logger.error(f"Error processing data: {str(e)}")
         return None
+
 
 def main() -> None:
 
